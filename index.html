@@ -24,10 +24,10 @@
                 extend: {
                     colors: {
                         brand: {
-                            blue: '#0079b4',   // Azul do logótipo
-                            teal: '#00aeb3',   // Verde/Turquesa do logótipo
-                            dark: '#0f172a',   // Slate 900 (Cinzento escuro corporativo)
-                            light: '#f8fafc',  // Slate 50 (Fundo claro)
+                            blue: '#0079b4',
+                            teal: '#00aeb3',
+                            dark: '#0f172a',
+                            light: '#f8fafc',
                         }
                     },
                     fontFamily: {
@@ -39,38 +39,17 @@
         }
     </script>
 
-   
-
-
-
 <style>
     .glass-effect {
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(10px);
     }
     .hero-bg {
-        /* Alterado: agora aponta para a pasta local */
         background-image: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(0, 121, 180, 0.7)), url('fundodonto.png');
         background-size: cover;
         background-position: center;
     }
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </head>
 <body class="font-sans text-gray-600 bg-brand-light antialiased selection:bg-brand-teal selection:text-white">
@@ -138,7 +117,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Card 1: Clínica Geral -->
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group">
                     <div class="w-14 h-14 bg-brand-light rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-teal transition-colors duration-300">
                         <i class="fa-solid fa-stethoscope text-2xl text-brand-blue group-hover:text-white transition-colors"></i>
@@ -149,7 +127,6 @@
                     </p>
                 </div>
 
-                <!-- Card 2: Estética -->
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group">
                     <div class="w-14 h-14 bg-brand-light rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-teal transition-colors duration-300">
                         <i class="fa-solid fa-wand-magic-sparkles text-2xl text-brand-blue group-hover:text-white transition-colors"></i>
@@ -160,7 +137,6 @@
                     </p>
                 </div>
 
-                <!-- Card 3: Cirurgia e Canal -->
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group">
                     <div class="w-14 h-14 bg-brand-light rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-teal transition-colors duration-300">
                         <i class="fa-solid fa-tooth text-2xl text-brand-blue group-hover:text-white transition-colors"></i>
@@ -172,7 +148,6 @@
                     </p>
                 </div>
 
-                <!-- Card 4: Ortodontia -->
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group">
                     <div class="w-14 h-14 bg-brand-light rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-teal transition-colors duration-300">
                         <i class="fa-solid fa-teeth text-2xl text-brand-blue group-hover:text-white transition-colors"></i>
@@ -183,7 +158,6 @@
                     </p>
                 </div>
 
-                <!-- Card 5: Próteses -->
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group">
                     <div class="w-14 h-14 bg-brand-light rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-teal transition-colors duration-300">
                         <i class="fa-solid fa-teeth-open text-2xl text-brand-blue group-hover:text-white transition-colors"></i>
@@ -194,7 +168,6 @@
                     </p>
                 </div>
 
-                <!-- Card 6: Pediatria e Geriatria -->
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group">
                     <div class="w-14 h-14 bg-brand-light rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-teal transition-colors duration-300">
                         <i class="fa-solid fa-hands-holding-child text-2xl text-brand-blue group-hover:text-white transition-colors"></i>
@@ -253,43 +226,42 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
-                                    <input type="text" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition-all" placeholder="O seu nome">
+                                    <input type="text" name="nome" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition-all" placeholder="O seu nome">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Telemóvel / WhatsApp</label>
-                                    <input type="tel" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition-all" placeholder="O seu contacto">
+                                    <input type="tel" name="telefone" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition-all" placeholder="O seu contacto">
                                 </div>
                             </div>
                             
-                            <!-- Menu Suspenso de Serviços -->
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Que serviço procura?</label>
-                                <select required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition-all text-gray-600 bg-white">
+                                <select name="servico" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition-all text-gray-600 bg-white">
                                     <option value="" disabled selected>Selecione uma opção...</option>
-                                    <option value="consulta">Consulta / Clínico Geral</option>
-                                    <option value="destartarizacao">Destartarização (Limpeza)</option>
-                                    <option value="restauracao">Restauração / Facetas em Resina</option>
-                                    <option value="canal">Tratamento de Canal</option>
-                                    <option value="exodontia">Exodontia (Extração)</option>
-                                    <option value="aparelho">Aparelho Ortodôntico</option>
-                                    <option value="protese">Prótese Dentária</option>
-                                    <option value="pediatria">Odontopediatria (Crianças)</option>
-                                    <option value="geriatria">Odontogeriatria (Idosos)</option>
-                                    <option value="outro">Ainda não sei / Apenas Avaliação</option>
+                                    <option value="Consulta / Clínico Geral">Consulta / Clínico Geral</option>
+                                    <option value="Destartarização">Destartarização (Limpeza)</option>
+                                    <option value="Restauração / Facetas">Restauração / Facetas em Resina</option>
+                                    <option value="Tratamento de Canal">Tratamento de Canal</option>
+                                    <option value="Exodontia">Exodontia (Extração)</option>
+                                    <option value="Aparelho Ortodôntico">Aparelho Ortodôntico</option>
+                                    <option value="Prótese Dentária">Prótese Dentária</option>
+                                    <option value="Odontopediatria">Odontopediatria (Crianças)</option>
+                                    <option value="Odontogeriatria">Odontogeriatria (Idosos)</option>
+                                    <option value="Avaliação / Outro">Ainda não sei / Apenas Avaliação</option>
                                 </select>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Data Desejada</label>
-                                    <input type="date" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition-all text-gray-600">
+                                    <input type="date" name="data" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition-all text-gray-600">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Período</label>
-                                    <select required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition-all text-gray-600 bg-white">
+                                    <select name="periodo" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition-all text-gray-600 bg-white">
                                         <option value="" disabled selected>Qual o melhor horário?</option>
-                                        <option value="manha">Manhã</option>
-                                        <option value="tarde">Tarde</option>
+                                        <option value="Manhã">Manhã</option>
+                                        <option value="Tarde">Tarde</option>
                                     </select>
                                 </div>
                             </div>
@@ -320,14 +292,12 @@
 
     <!-- SECÇÃO DE LOCALIZAÇÃO -->
     <section id="localizacao" class="bg-gray-100 relative">
-        <!-- Caixa Flutuante com a Morada -->
         <div class="absolute top-10 left-1/2 transform -translate-x-1/2 md:left-10 md:translate-x-0 z-20 bg-white p-6 rounded-2xl shadow-xl max-w-sm w-[90%] border-t-4 border-brand-teal">
             <h3 class="font-serif text-xl font-bold text-brand-dark mb-2">Visite-nos</h3>
             <p class="text-gray-600 font-medium mb-1"><i class="fa-solid fa-location-dot text-brand-teal mr-2"></i> Marteris, Rua 18</p>
             <p class="text-sm text-gray-500 mt-3 border-t pt-3">Aguardamos a sua visita num espaço preparado com conforto e tecnologia para o receber.</p>
         </div>
 
-        <!-- Mapa Exato do Gildo (Integrado com 100% largura e altura) -->
         <div class="w-full h-[500px] md:h-[600px] grayscale hover:grayscale-0 transition-all duration-700">
             <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1515.8896856991553!2d13.2341045578787!3d-8.841962427845626!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m3!3e0!4m0!4m0!5e1!3m2!1sen!2sao!4v1779185766870!5m2!1sen!2sao" 
@@ -370,7 +340,6 @@
     </footer>
 
     <!-- BOTÃO WHATSAPP FLUTUANTE -->
-    <!-- Coloque o número do Gildo substituindo os "X" abaixo -->
     <a href="https://wa.me/244956110103" target="_blank" class="fixed bottom-6 right-6 z-50 group flex items-center justify-center bg-[#25D366] text-white rounded-full p-4 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
         <i class="fa-brands fa-whatsapp text-3xl"></i>
         <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs group-hover:ml-3 font-medium transition-all duration-500 ease-in-out">
@@ -378,25 +347,61 @@
         </span>
     </a>
 
-    <!-- SCRIPT DO FORMULÁRIO -->
+    <!-- SCRIPT DE ENVIO PARA O SHEETDB -->
     <script>
         function handleFormSubmit(event) {
             event.preventDefault();
             
+            const form = event.target;
             const btn = document.getElementById('submit-btn');
             const originalText = btn.innerHTML;
             
+            // ==============================================================================================
+            // 🚨 ATENÇÃO: COLOQUE O LINK DO SEU SHEETDB ENTRE AS ASPAS ABAIXO! 🚨
+            // Vá ao site sheetdb.io, crie a API com o seu link do Excel, copie e cole a URL gerada aqui.
+            // Exemplo correto: 'https://sheetdb.io/api/v1/a1b2c3d4e5f6g'
+            // ==============================================================================================
+            const SHEETDB_API_URL = 'https://sheetdb.io/api/v1/x2kd3kd7w8kqb'; 
+
+            
+            // Verificação de Segurança
+            if (SHEETDB_API_URL === 'COLOQUE_AQUI_O_SEU_LINK_DO_SHEETDB' || SHEETDB_API_URL === '') {
+                alert("ATENÇÃO: O formulário não foi enviado porque falta colocar o link do SheetDB no código.\n\nPor favor, vá à linha 442 do ficheiro index.html e cole lá a sua API URL (começa com https://sheetdb.io/api/v1/...).");
+                return;
+            }
+
+            // Animação de carregamento
             btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> A processar...';
             btn.classList.add('opacity-80', 'cursor-not-allowed');
 
-            setTimeout(() => {
+            const formData = new FormData(form);
+            const dataObj = Object.fromEntries(formData.entries());
+
+            fetch(SHEETDB_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    data: [dataObj]
+                })
+            })
+            .then((response) => response.json())
+            .then((data) => {
                 document.getElementById('form-container').classList.add('hidden');
                 document.getElementById('success-message').classList.remove('hidden');
                 
                 btn.innerHTML = originalText;
                 btn.classList.remove('opacity-80', 'cursor-not-allowed');
-                document.getElementById('booking-form').reset();
-            }, 1500);
+                form.reset();
+            })
+            .catch((error) => {
+                console.error('Erro:', error);
+                alert('Ocorreu um erro na ligação. Verifique se o link da API do SheetDB está correto e tente novamente.');
+                btn.innerHTML = originalText;
+                btn.classList.remove('opacity-80', 'cursor-not-allowed');
+            });
         }
 
         function resetForm() {
