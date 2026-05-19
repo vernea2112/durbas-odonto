@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-PT" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Durbas Odonto | Mudando sorrisos, renovando vidas.</title>
+    <meta name="description" content="Clínica Dentária no Marteris. Especialistas em Clínica Geral, Aparelhos, Próteses e Estética Dentária.">
+
+    <!-- Google Fonts: Playfair Display (Serif) & Inter (Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome v6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind CSS (via CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Configuração Personalizada do Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#0079b4',   // Azul do logótipo
+                            teal: '#00aeb3',   // Verde/Turquesa do logótipo
+                            dark: '#0f172a',   // Slate 900 (Cinzento escuro corporativo)
+                            light: '#f8fafc',  // Slate 50 (Fundo claro)
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+   
+
+
+
+<style>
+    .glass-effect {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+    }
+    .hero-bg {
+        /* Alterado: agora aponta para a pasta local */
+        background-image: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(0, 121, 180, 0.7)), url('fundodonto.png');
+        background-size: cover;
+        background-position: center;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="font-sans text-gray-600 bg-brand-light antialiased selection:bg-brand-teal selection:text-white">
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-50 glass-effect border-b border-gray-100 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logótipo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <i class="fa-solid fa-tooth text-3xl text-brand-teal"></i>
+                    <div class="flex flex-col">
+                        <span class="font-sans font-bold text-2xl tracking-tight uppercase flex">
+                            <span class="text-brand-blue">Durbas</span>
+                            <span class="text-brand-teal ml-1">Odonto</span>
+                        </span>
+                        <span class="text-[0.55rem] font-semibold text-gray-500 uppercase tracking-widest mt-[-2px]">Renovando Vidas</span>
+                    </div>
+                </div>
+
+                <!-- Links Desktop -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#servicos" class="text-gray-600 hover:text-brand-teal font-medium transition-colors">Tratamentos</a>
+                    <a href="#localizacao" class="text-gray-600 hover:text-brand-teal font-medium transition-colors">Localização</a>
+                    <a href="#agendar" class="bg-brand-blue hover:bg-brand-teal text-white px-6 py-2.5 rounded-full font-medium transition-all duration-300 shadow-lg shadow-brand-blue/30 transform hover:-translate-y-0.5">
+                        Agendar Consulta
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero-bg min-h-[100vh] flex items-center pt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="max-w-3xl">
+                <span class="inline-block py-1 px-3 rounded-full bg-brand-teal/20 text-brand-teal font-semibold text-sm mb-6 border border-brand-teal/30">
+                    <i class="fa-solid fa-location-dot text-xs mr-1"></i> Estamos no Marteris, Rua 18
+                </span>
+                <h1 class="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
+                    Mudando sorrisos, <br>
+                    <span class="text-brand-teal italic">renovando vidas.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl font-light">
+                    Soluções completas para a sua saúde oral num só lugar. Desde uma simples consulta de avaliação até à reabilitação estética completa com a nossa equipa especializada.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#agendar" class="bg-brand-teal hover:bg-white hover:text-brand-dark text-white text-center px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-xl">
+                        Marcar Avaliação
+                    </a>
+                    <a href="#servicos" class="bg-white/10 hover:bg-white/20 text-white border border-white/30 text-center px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 backdrop-blur-sm">
+                        Ver Tratamentos
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECÇÃO DE SERVIÇOS -->
+    <section id="servicos" class="py-24 bg-brand-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="font-serif text-4xl font-bold text-brand-dark mb-4">Os Nossos Serviços</h2>
+                <p class="text-gray-500 text-lg">Cuidamos da sua saúde oral com dedicação e profissionalismo em todas as áreas da medicina dentária.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1: Clínica Geral -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-brand-light rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-teal transition-colors duration-300">
+                        <i class="fa-solid fa-stethoscope text-2xl text-brand-blue group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-brand-dark mb-3">Clínica Geral & Prevenção</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-4">
+                        Realizamos <strong>Consultas</strong> de rotina, atendimento com <strong>Clínico Geral</strong> e <strong>Destartarização</strong> para manter a higiene e saúde da sua boca em dia.
+                    </p>
+                </div>
+
+                <!-- Card 2: Estética -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-brand-light rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-teal transition-colors duration-300">
+                        <i class="fa-solid fa-wand-magic-sparkles text-2xl text-brand-blue group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-brand-dark mb-3">Dentística & Estética</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-4">
+                        Devolvemos a beleza ao seu sorriso através de <strong>Restauração</strong> altamente estética e aplicação de <strong>Facetas em Resina</strong> para um acabamento perfeito.
+                    </p>
+                </div>
+
+                <!-- Card 3: Cirurgia e Canal -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-brand-light rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-teal transition-colors duration-300">
+                        <i class="fa-solid fa-tooth text-2xl text-brand-blue group-hover:text-white transition-colors"></i>
+                        <i class="fa-solid fa-syringe absolute text-xs text-brand-teal mt-4 ml-4 group-hover:text-white"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-brand-dark mb-3">Endodontia & Exodontia</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-4">
+                        Tratamentos seguros e sem dor. Realizamos <strong>Tratamento de canal</strong> para salvar a estrutura dentária e <strong>Exodontia</strong> (extração) quando estritamente necessário.
+                    </p>
+                </div>
+
+                <!-- Card 4: Ortodontia -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-brand-light rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-teal transition-colors duration-300">
+                        <i class="fa-solid fa-teeth text-2xl text-brand-blue group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-brand-dark mb-3">Ortodontia</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-4">
+                        Corrija o alinhamento dos seus dentes e a sua mordida com a instalação e manutenção especializada de <strong>Aparelho ortodôntico</strong>.
+                    </p>
+                </div>
+
+                <!-- Card 5: Próteses -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-brand-light rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-teal transition-colors duration-300">
+                        <i class="fa-solid fa-teeth-open text-2xl text-brand-blue group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-brand-dark mb-3">Reabilitação Oral</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-4">
+                        Recupere a capacidade de mastigar e sorrir com confiança através de soluções de <strong>Prótese dentária</strong> feitas à medida para conforto total.
+                    </p>
+                </div>
+
+                <!-- Card 6: Pediatria e Geriatria -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-brand-light rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-teal transition-colors duration-300">
+                        <i class="fa-solid fa-hands-holding-child text-2xl text-brand-blue group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-brand-dark mb-3">Cuidado Etário Especializado</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-4">
+                        Atendimento com paciência e técnica específica. <strong>Odontopediatria</strong> para os mais pequenos e <strong>Odontogeriatria</strong> focada na saúde oral na terceira idade.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECÇÃO DE AGENDAMENTO -->
+    <section id="agendar" class="py-24 bg-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-brand-teal/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-brand-blue/10 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-brand-dark rounded-3xl shadow-2xl overflow-hidden flex flex-col lg:flex-row">
+                
+                <!-- Informações de Contacto -->
+                <div class="lg:w-5/12 bg-brand-blue p-10 lg:p-14 text-white flex flex-col justify-between">
+                    <div>
+                        <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4">Agende a sua consulta</h2>
+                        <p class="text-brand-blue-100 text-opacity-90 mb-8 font-light">Preencha o formulário e a nossa equipa entrará em contacto rapidamente para confirmar o seu horário.</p>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-location-dot text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-white/70">A Nossa Clínica</p>
+                                    <p class="font-semibold">Marteris, Rua 18</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-white/70">WhatsApp / Chamada</p>
+                                    <p class="font-semibold">Fale com a receção</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulário -->
+                <div class="lg:w-7/12 p-10 lg:p-14 bg-white">
+                    <div id="form-container">
+                        <h3 class="font-serif text-2xl font-bold text-brand-dark mb-6">Solicitar Horário</h3>
+                        <form id="booking-form" class="space-y-5" onsubmit="handleFormSubmit(event)">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
+                                    <input type="text" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition-all" placeholder="O seu nome">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Telemóvel / WhatsApp</label>
+                                    <input type="tel" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition-all" placeholder="O seu contacto">
+                                </div>
+                            </div>
+                            
+                            <!-- Menu Suspenso de Serviços -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Que serviço procura?</label>
+                                <select required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition-all text-gray-600 bg-white">
+                                    <option value="" disabled selected>Selecione uma opção...</option>
+                                    <option value="consulta">Consulta / Clínico Geral</option>
+                                    <option value="destartarizacao">Destartarização (Limpeza)</option>
+                                    <option value="restauracao">Restauração / Facetas em Resina</option>
+                                    <option value="canal">Tratamento de Canal</option>
+                                    <option value="exodontia">Exodontia (Extração)</option>
+                                    <option value="aparelho">Aparelho Ortodôntico</option>
+                                    <option value="protese">Prótese Dentária</option>
+                                    <option value="pediatria">Odontopediatria (Crianças)</option>
+                                    <option value="geriatria">Odontogeriatria (Idosos)</option>
+                                    <option value="outro">Ainda não sei / Apenas Avaliação</option>
+                                </select>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Data Desejada</label>
+                                    <input type="date" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition-all text-gray-600">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Período</label>
+                                    <select required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition-all text-gray-600 bg-white">
+                                        <option value="" disabled selected>Qual o melhor horário?</option>
+                                        <option value="manha">Manhã</option>
+                                        <option value="tarde">Tarde</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button type="submit" id="submit-btn" class="w-full mt-4 bg-brand-dark hover:bg-brand-teal text-white font-semibold py-4 rounded-lg transition-colors duration-300 flex justify-center items-center gap-2">
+                                <span>Enviar Pedido de Marcação</span>
+                                <i class="fa-solid fa-paper-plane text-sm"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Mensagem de Sucesso -->
+                    <div id="success-message" class="hidden h-full flex flex-col items-center justify-center text-center py-10">
+                        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-check text-4xl text-green-500"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-brand-dark mb-2">Pedido Enviado!</h3>
+                        <p class="text-gray-500 mb-6">A receção da Durbas Odonto irá contactar em breve o número fornecido para confirmar a sua marcação.</p>
+                        <button onclick="resetForm()" class="text-brand-teal font-medium hover:text-brand-blue transition-colors">
+                            Fazer outro pedido
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECÇÃO DE LOCALIZAÇÃO -->
+    <section id="localizacao" class="bg-gray-100 relative">
+        <!-- Caixa Flutuante com a Morada -->
+        <div class="absolute top-10 left-1/2 transform -translate-x-1/2 md:left-10 md:translate-x-0 z-20 bg-white p-6 rounded-2xl shadow-xl max-w-sm w-[90%] border-t-4 border-brand-teal">
+            <h3 class="font-serif text-xl font-bold text-brand-dark mb-2">Visite-nos</h3>
+            <p class="text-gray-600 font-medium mb-1"><i class="fa-solid fa-location-dot text-brand-teal mr-2"></i> Marteris, Rua 18</p>
+            <p class="text-sm text-gray-500 mt-3 border-t pt-3">Aguardamos a sua visita num espaço preparado com conforto e tecnologia para o receber.</p>
+        </div>
+
+        <!-- Mapa Exato do Gildo (Integrado com 100% largura e altura) -->
+        <div class="w-full h-[500px] md:h-[600px] grayscale hover:grayscale-0 transition-all duration-700">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1515.8896856991553!2d13.2341045578787!3d-8.841962427845626!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m3!3e0!4m0!4m0!5e1!3m2!1sen!2sao!4v1779185766870!5m2!1sen!2sao" 
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-dark py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
+                
+                <div class="flex flex-col items-center md:items-start">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fa-solid fa-tooth text-2xl text-brand-teal"></i>
+                        <span class="font-sans font-bold text-xl tracking-tight uppercase flex">
+                            <span class="text-white">Durbas</span>
+                            <span class="text-brand-teal ml-1">Odonto</span>
+                        </span>
+                    </div>
+                    <p class="text-xs text-gray-400 uppercase tracking-widest">Renovando vidas</p>
+                </div>
+
+                <div class="text-gray-400 text-sm text-center md:text-left flex flex-col gap-2">
+                    <p><i class="fa-solid fa-map-pin mr-2 text-brand-teal"></i> Marteris, Rua 18</p>
+                    <p><i class="fa-solid fa-clock mr-2 text-brand-teal"></i> Seg - Sáb, por marcação</p>
+                </div>
+
+                <div class="text-gray-500 text-xs text-center md:text-right">
+                    &copy; 2024 Durbas Odonto.<br>Todos os direitos reservados.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOTÃO WHATSAPP FLUTUANTE -->
+    <!-- Coloque o número do Gildo substituindo os "X" abaixo -->
+    <a href="https://wa.me/244956110103" target="_blank" class="fixed bottom-6 right-6 z-50 group flex items-center justify-center bg-[#25D366] text-white rounded-full p-4 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+        <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs group-hover:ml-3 font-medium transition-all duration-500 ease-in-out">
+            Fale Connosco
+        </span>
+    </a>
+
+    <!-- SCRIPT DO FORMULÁRIO -->
+    <script>
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const btn = document.getElementById('submit-btn');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> A processar...';
+            btn.classList.add('opacity-80', 'cursor-not-allowed');
+
+            setTimeout(() => {
+                document.getElementById('form-container').classList.add('hidden');
+                document.getElementById('success-message').classList.remove('hidden');
+                
+                btn.innerHTML = originalText;
+                btn.classList.remove('opacity-80', 'cursor-not-allowed');
+                document.getElementById('booking-form').reset();
+            }, 1500);
+        }
+
+        function resetForm() {
+            document.getElementById('success-message').classList.add('hidden');
+            document.getElementById('form-container').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
