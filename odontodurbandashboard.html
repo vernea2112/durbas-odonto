@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="pt-PT" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Avançado | Durbas Odonto</title>
+
+    <!-- Google Fonts: Playfair Display & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome v6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind CSS (via CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js (via CDN para gráficos interativos) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Configuração Personalizada do Tailwind (Alinhada à Landing Page) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#0079b4',   // Azul corporativo
+                            teal: '#00aeb3',   // Turquesa / Verde
+                            dark: '#0f172a',   // Slate 900
+                            light: '#f8fafc',  // Slate 50
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-gray-600 bg-brand-light antialiased min-h-screen">
+
+    <div class="flex flex-col lg:flex-row min-h-screen">
+        
+        <!-- SIDEBAR -->
+        <aside class="w-full lg:w-72 bg-brand-dark text-white flex flex-col shadow-2xl flex-shrink-0 z-20">
+            <!-- Header/Logo da Clínica -->
+            <div class="p-6 border-b border-gray-800 flex items-center gap-3">
+                <div class="w-10 h-10 bg-brand-teal/10 rounded-xl flex items-center justify-center border border-brand-teal/20">
+                    <i class="fa-solid fa-tooth text-xl text-brand-teal"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-sans font-bold text-lg tracking-tight uppercase leading-none">
+                        <span class="text-white">Durbas</span><span class="text-brand-teal ml-1">Odonto</span>
+                    </span>
+                    <span class="text-[0.55rem] font-bold text-gray-400 uppercase tracking-widest mt-1">Gestão de Clínicas v2.0</span>
+                </div>
+            </div>
+
+            <!-- Navegação e Estatutos Rápidos -->
+            <div class="flex-1 p-4 space-y-6">
+                <div>
+                    <p class="text-[0.6rem] font-bold text-gray-500 uppercase tracking-widest px-4 mb-2">Painel de Controlo</p>
+                    <nav class="space-y-1">
+                        <a href="#" onclick="showSection('analytics')" id="nav-analytics" class="flex items-center justify-between px-4 py-3 rounded-xl bg-brand-blue text-white font-medium transition-all shadow-md shadow-brand-blue/20">
+                            <span class="flex items-center gap-3"><i class="fa-solid fa-chart-line text-brand-teal"></i> Visão Geral & Métricas</span>
+                        </a>
+                        <a href="#" onclick="showSection('agenda')" id="nav-agenda" class="flex items-center justify-between px-4 py-3 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all">
+                            <span class="flex items-center gap-3"><i class="fa-solid fa-calendar-days"></i> Listagem de Consultas</span>
+                            <span id="badge-sidebar-total" class="bg-brand-teal/20 text-brand-teal text-[0.65rem] font-bold px-2 py-0.5 rounded-md">0</span>
+                        </a>
+                    </nav>
+                </div>
+
+                <!-- Fontes de Dados (DbSheet vs Simulação) -->
+                <div class="bg-gray-800/50 p-4 rounded-2xl border border-gray-800">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-semibold text-gray-300">Modo de Simulação</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="mock-data-toggle" class="sr-only peer" onchange="toggleMockData()">
+                            <div class="w-9 h-5 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-brand-teal"></div>
+                        </label>
+                    </div>
+                    <p class="text-[0.65rem] text-gray-400">Ative para carregar dezenas de dados fictícios e visualizar gráficos completos instantaneamente.</p>
+                </div>
+            </div>
+
+            <!-- Rodapé e Status da Ligação -->
+            <div class="p-6 border-t border-gray-800">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="w-2.5 h-2.5 rounded-full animate-ping bg-green-500"></span>
+                    <span class="text-xs text-gray-300 font-medium" id="sync-status">Sincronizado com DbSheet</span>
+                </div>
+                <div class="text-[0.65rem] text-gray-500 uppercase tracking-wider text-center">
+                    &copy; 2026 Durbas Odonto
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTAINER -->
+        <main class="flex-1 p-6 md:p-10 overflow-y-auto space-y-8">
+            
+            <!-- TOP BAR / ACTIONS -->
+            <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-gray-200/60 pb-6">
+                <div>
+                    <h1 class="font-serif text-3xl md:text-4xl font-bold text-brand-dark" id="header-title">Métricas de Desempenho</h1>
+                    <p class="text-sm text-gray-500 mt-1">Gestão clínica inteligente integrada e em tempo real.</p>
+                </div>
+                
+                <div class="flex flex-wrap items-center gap-2.5">
+                    <button onclick="refreshData()" class="px-4 py-2.5 text-xs font-semibold bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 rounded-xl transition-all shadow-xs flex items-center gap-2">
+                        <i id="refresh-icon" class="fa-solid fa-arrows-rotate"></i> Atualizar Dados
+                    </button>
+                    <button onclick="exportToCSV()" class="px-4 py-2.5 text-xs font-semibold bg-brand-teal hover:bg-brand-blue text-white rounded-xl transition-all shadow-md shadow-brand-teal/20 flex items-center gap-2">
+                        <i class="fa-solid fa-file-csv text-sm"></i> Exportar CSV
+                    </button>
+                </div>
+            </header>
+
+            <!-- FILTERS PANEL -->
+            <section class="bg-white p-6 rounded-2xl border border-gray-200/80 shadow-xs space-y-4">
+                <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-brand-dark flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-brand-teal"></i> Filtros e Ajustes Avançados
+                    </h3>
+                    <button onclick="clearAllFilters()" class="text-xs text-brand-blue hover:text-brand-teal font-medium transition-all">Limpar Tudo</button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                    <!-- Data Início -->
+                    <div>
+                        <label class="block font-medium text-gray-700 mb-1.5">Data de Início</label>
+                        <input type="date" id="filter-start-date" onchange="applyFilters()" class="w-full px-3 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal transition-all">
+                    </div>
+                    <!-- Data Fim -->
+                    <div>
+                        <label class="block font-medium text-gray-700 mb-1.5">Data de Fim</label>
+                        <input type="date" id="filter-end-date" onchange="applyFilters()" class="w-full px-3 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal transition-all">
+                    </div>
+                    <!-- Filtrar por Tratamento -->
+                    <div>
+                        <label class="block font-medium text-gray-700 mb-1.5">Tratamento</label>
+                        <select id="filter-service" onchange="applyFilters()" class="w-full px-3 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal transition-all bg-white">
+                            <option value="todos">Todos os Serviços</option>
+                            <option value="consulta">Consulta / Clínico Geral</option>
+                            <option value="destartarizacao">Destartarização (Limpeza)</option>
+                            <option value="restauracao">Restauração / Facetas</option>
+                            <option value="canal">Tratamento de Canal</option>
+                            <option value="exodontia">Exodontia (Extração)</option>
+                            <option value="aparelho">Aparelho Ortodôntico</option>
+                            <option value="protese">Prótese Dentária</option>
+                        </select>
+                    </div>
+                    <!-- Filtrar por Período -->
+                    <div>
+                        <label class="block font-medium text-gray-700 mb-1.5">Período de Agendamento</label>
+                        <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-gray-200">
+                            <button onclick="setPeriodoBtn('todos')" id="pbtn-todos" class="flex-1 py-1.5 rounded-lg text-center font-semibold text-brand-dark bg-white shadow-xs transition-all">Todos</button>
+                            <button onclick="setPeriodoBtn('manha')" id="pbtn-manha" class="flex-1 py-1.5 rounded-lg text-center font-semibold text-gray-500 hover:text-brand-dark transition-all">Manhã</button>
+                            <button onclick="setPeriodoBtn('tarde')" id="pbtn-tarde" class="flex-1 py-1.5 rounded-lg text-center font-semibold text-gray-500 hover:text-brand-dark transition-all">Tarde</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KPI COUNTERS -->
+            <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Total -->
+                <div onclick="setStatusFilter('todos')" class="bg-white p-6 rounded-2xl border border-gray-100 shadow-xs flex items-center justify-between cursor-pointer hover:border-brand-blue transition-all group relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-brand-blue"></div>
+                    <div>
+                        <p class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-400 mb-1">Total Filtrado</p>
+                        <h3 id="kpi-total" class="text-3xl font-bold text-brand-dark">0</h3>
+                    </div>
+                    <div class="w-12 h-12 bg-slate-50 text-brand-blue rounded-xl flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-all"><i class="fa-solid fa-folder-open text-lg"></i></div>
+                </div>
+                <!-- Marcado -->
+                <div onclick="setStatusFilter('Marcado')" class="bg-white p-6 rounded-2xl border border-gray-100 shadow-xs flex items-center justify-between cursor-pointer hover:border-amber-400 transition-all group relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-amber-500"></div>
+                    <div>
+                        <p class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-400 mb-1">Pendente / Marcado</p>
+                        <h3 id="kpi-marcados" class="text-3xl font-bold text-amber-600">0</h3>
+                    </div>
+                    <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center group-hover:bg-amber-500 group-hover:text-white transition-all"><i class="fa-solid fa-clock text-lg"></i></div>
+                </div>
+                <!-- Confirmado -->
+                <div onclick="setStatusFilter('Confirmado')" class="bg-white p-6 rounded-2xl border border-gray-100 shadow-xs flex items-center justify-between cursor-pointer hover:border-emerald-400 transition-all group relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-emerald-500"></div>
+                    <div>
+                        <p class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-400 mb-1">Confirmados</p>
+                        <h3 id="kpi-confirmados" class="text-3xl font-bold text-emerald-600">0</h3>
+                    </div>
+                    <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-white transition-all"><i class="fa-solid fa-circle-check text-lg"></i></div>
+                </div>
+                <!-- Cancelado -->
+                <div onclick="setStatusFilter('Cancelado')" class="bg-white p-6 rounded-2xl border border-gray-100 shadow-xs flex items-center justify-between cursor-pointer hover:border-rose-400 transition-all group relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-rose-500"></div>
+                    <div>
+                        <p class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-400 mb-1">Cancelados</p>
+                        <h3 id="kpi-cancelados" class="text-3xl font-bold text-rose-600">0</h3>
+                    </div>
+                    <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center group-hover:bg-rose-500 group-hover:text-white transition-all"><i class="fa-solid fa-circle-xmark text-lg"></i></div>
+                </div>
+            </section>
+
+            <!-- SECTION: ANALYTICS (GRÁFICOS) -->
+            <section id="section-analytics" class="space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Evolução e Tendência Mensal -->
+                    <div class="bg-white p-5 rounded-2xl border border-gray-200/80 shadow-xs lg:col-span-2">
+                        <div class="flex items-center justify-between border-b border-gray-100 pb-4 mb-4">
+                            <h3 class="font-serif text-md font-bold text-brand-dark flex items-center gap-2">
+                                <i class="fa-solid fa-chart-area text-brand-blue"></i> Histórico & Tendência de Agendamentos
+                            </h3>
+                            <span class="text-[0.65rem] text-gray-400 font-medium">Últimos meses analisados</span>
+                        </div>
+                        <div class="h-64 relative">
+                            <canvas id="chart-trends"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Distribuição por Especialidade -->
+                    <div class="bg-white p-5 rounded-2xl border border-gray-200/80 shadow-xs">
+                        <div class="flex items-center justify-between border-b border-gray-100 pb-4 mb-4">
+                            <h3 class="font-serif text-md font-bold text-brand-dark flex items-center gap-2">
+                                <i class="fa-solid fa-pie-chart text-brand-teal"></i> Serviços Mais Procurados
+                            </h3>
+                            <span class="text-[0.65rem] text-gray-400 font-medium">Especialidades</span>
+                        </div>
+                        <div class="h-64 relative flex items-center justify-center">
+                            <canvas id="chart-services"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: AGENDA (LISTAGEM DETALHADA) -->
+            <section id="section-agenda" class="bg-white rounded-2xl border border-gray-200/80 shadow-xs overflow-hidden">
+                <div class="p-5 border-b border-gray-100 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-clipboard-list text-brand-teal"></i>
+                        <h2 class="font-serif text-lg font-bold text-brand-dark">Fila de Consultas e Confirmações</h2>
+                    </div>
+                    
+                    <div class="relative w-full sm:w-80">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                        <input type="text" id="search-bar" oninput="handleSearch()" placeholder="Pesquisar por nome do paciente..." class="w-full pl-9 pr-4 py-2.5 text-xs rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-teal focus:border-brand-teal transition-all">
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 text-gray-400 uppercase text-[0.65rem] font-bold tracking-widest border-b border-gray-200/60">
+                                <th class="py-4 px-6">Paciente</th>
+                                <th class="py-4 px-6">Data & Período</th>
+                                <th class="py-4 px-6">Especialidade</th>
+                                <th class="py-4 px-6">Contacto (SMS/WA)</th>
+                                <th class="py-4 px-6 text-center">Ações Rápidas</th>
+                                <th class="py-4 px-6 text-center">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body" class="divide-y divide-gray-100 text-xs text-gray-600">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- SCRIPTS CORE DO SYSTEM -->
+    <script>
+        // CONFIGURAÇÃO: Link exato da API do seu SheetDB
+        const DBSHEET_API_URL = "https://sheetdb.io/api/v1/x2kd3kd7w8kqb";
+
+        // Mapeamentos de Identidade
+        const dicionarioServicos = {
+            "consulta": "Consulta Geral",
+            "destartarizacao": "Limpeza Profunda",
+            "restauracao": "Restauração",
+            "canal": "Tratamento Canal",
+            "exodontia": "Exodontia (Extração)",
+            "aparelho": "Ortodontia",
+            "protese": "Prótese Dentária",
+            "pediatria": "Odontopediatria",
+            "geriatria": "Odontogeriatria",
+            "outro": "Avaliação Estética"
+        };
+
+        const dicionarioPeriodos = {
+            "manha": "Manhã",
+            "tarde": "Tarde"
+        };
+
+        // Dados de Simulação (Mock Data) de alto impacto visual
+        const MOCK_DATA = [
+            { nome: "Francisco Gildo", telefone: "244956110103", servico: "aparelho", data: "2026-05-20", periodo: "manha", status: "Confirmado" },
+            { nome: "Ana Paula Silva", telefone: "244933221100", servico: "restauracao", data: "2026-05-20", periodo: "tarde", status: "Marcado" },
+            { nome: "Manuel António", telefone: "244944556677", servico: "canal", data: "2026-05-21", periodo: "manha", status: "Confirmado" },
+            { nome: "Maria Clara Santos", telefone: "244922334455", servico: "consulta", data: "2026-05-21", periodo: "tarde", status: "Cancelado" },
+            { nome: "Carlos Eduardo Guedes", telefone: "244911009988", servico: "destartarizacao", data: "2026-05-22", periodo: "manha", status: "Marcado" },
+            { nome: "Beatriz Costa", telefone: "244988776655", servico: "protese", data: "2026-05-22", periodo: "tarde", status: "Confirmado" },
+            { nome: "Isabel Regina", telefone: "244955112233", servico: "pediatria", data: "2026-05-23", periodo: "manha", status: "Marcado" },
+            { nome: "João Pedro Sousa", telefone: "244911223344", servico: "exodontia", data: "2026-04-15", periodo: "tarde", status: "Confirmado" },
+            { nome: "Teresa Brandão", telefone: "244922883311", servico: "consulta", data: "2026-04-18", periodo: "manha", status: "Confirmado" },
+            { nome: "Ricardo Jorge", telefone: "244966334422", servico: "restauracao", data: "2026-03-10", periodo: "tarde", status: "Confirmado" }
+        ];
+
+        // Variáveis de Estado da Aplicação
+        let totalAgendamentos = [];
+        let agendamentosFiltrados = [];
+        
+        let filtroPeriodoInput = 'todos'; // todos, manha, tarde
+        let filtroStatusInput = 'todos'; // todos, Marcado, Confirmado, Cancelado
+        let currentSection = 'analytics'; // analytics, agenda
+        let useMockData = false;
+
+        // Variáveis globais para instâncias do Chart.js (evita sobreposição)
+        let chartTrendsInstance = null;
+        let chartServicesInstance = null;
+
+        // Inicialização
+        document.addEventListener("DOMContentLoaded", () => {
+            // Verifica se tem preferência salva de Mock Data
+            const savedMock = localStorage.getItem("useMockData");
+            if (savedMock === "true") {
+                document.getElementById("mock-data-toggle").checked = true;
+                useMockData = true;
+            }
+            refreshData();
+            showSection('analytics');
+        });
+
+        // Alternar visualização entre Secções
+        function showSection(sectionName) {
+            currentSection = sectionName;
+            
+            const secAnalytics = document.getElementById("section-analytics");
+            const secAgenda = document.getElementById("section-agenda");
+            const navAnalytics = document.getElementById("nav-analytics");
+            const navAgenda = document.getElementById("nav-agenda");
+            const hTitle = document.getElementById("header-title");
+
+            if (sectionName === 'analytics') {
+                secAnalytics.classList.remove("hidden");
+                secAgenda.classList.add("hidden");
+                
+                navAnalytics.className = "flex items-center justify-between px-4 py-3 rounded-xl bg-brand-blue text-white font-medium transition-all shadow-md shadow-brand-blue/20";
+                navAgenda.className = "flex items-center justify-between px-4 py-3 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all";
+                hTitle.innerText = "Métricas de Desempenho";
+            } else {
+                secAnalytics.classList.add("hidden");
+                secAgenda.classList.remove("hidden");
+                
+                navAnalytics.className = "flex items-center justify-between px-4 py-3 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all";
+                navAgenda.className = "flex items-center justify-between px-4 py-3 rounded-xl bg-brand-blue text-white font-medium transition-all shadow-md shadow-brand-blue/20";
+                hTitle.innerText = "Lista de Agendamentos";
+            }
+        }
+
+        // Ativa/Desativa simulação
+        function toggleMockData() {
+            useMockData = document.getElementById("mock-data-toggle").checked;
+            localStorage.setItem("useMockData", useMockData);
+            refreshData();
+        }
+
+        // Atualização e Leitura de Dados
+        async function refreshData() {
+            const syncStatus = document.getElementById("sync-status");
+            const refreshIcon = document.getElementById("refresh-icon");
+            refreshIcon.classList.add("fa-spin");
+
+            if (useMockData) {
+                totalAgendamentos = JSON.parse(JSON.stringify(MOCK_DATA)); // Deep copy
+                syncStatus.innerText = "Modo Simulação Ativo";
+                syncStatus.className = "text-xs text-amber-500 font-medium";
+                setTimeout(() => {
+                    refreshIcon.classList.remove("fa-spin");
+                    applyFilters();
+                }, 400);
+                return;
+            }
+
+            syncStatus.innerText = "A ligar ao DbSheet...";
+            syncStatus.className = "text-xs text-gray-400 font-medium";
+
+            try {
+                const response = await fetch(DBSHEET_API_URL);
+                if (!response.ok) throw new Error();
+                
+                const data = await response.json();
+                
+                totalAgendamentos = data.map(item => ({
+                    nome: item.nome || item.Nome || "Paciente Sem Nome",
+                    telefone: item.telefone || item.Telefone || item.Contacto || "",
+                    servico: item.servico || item.Servico || "outro",
+                    data: item.data || item.Data || "",
+                    periodo: item.periodo || item.Periodo || "manha",
+                    status: item.status || item.Status || "Marcado"
+                }));
+
+                syncStatus.innerText = "Ligação Ativa (DbSheet)";
+                syncStatus.className = "text-xs text-green-500 font-medium";
+            } catch (error) {
+                console.error("Erro ao consumir DbSheet, ativando Simulação Automática.");
+                totalAgendamentos = JSON.parse(JSON.stringify(MOCK_DATA));
+                syncStatus.innerText = "Erro DB - Simulação Carregada";
+                syncStatus.className = "text-xs text-rose-500 font-medium";
+            } finally {
+                refreshIcon.classList.remove("fa-spin");
+                applyFilters();
+            }
+        }
+
+        // MOTOR PRINCIPAL DE FILTROS E PESQUISAS
+        function applyFilters() {
+            const startDateVal = document.getElementById("filter-start-date").value;
+            const endDateVal = document.getElementById("filter-end-date").value;
+            const serviceVal = document.getElementById("filter-service").value;
+
+            agendamentosFiltrados = totalAgendamentos.filter(item => {
+                // 1. Filtro por Serviço/Tratamento
+                if (serviceVal !== 'todos' && item.servico.toLowerCase() !== serviceVal.toLowerCase()) {
+                    return false;
+                }
+
+                // 2. Filtro por Período
+                if (filtroPeriodoInput !== 'todos' && item.periodo.toLowerCase() !== filtroPeriodoInput.toLowerCase()) {
+                    return false;
+                }
+
+                // 3. Filtro por Estado (Status)
+                if (filtroStatusInput !== 'todos' && item.status.toLowerCase() !== filtroStatusInput.toLowerCase()) {
+                    return false;
+                }
+
+                // 4. Filtro por Intervalo de Datas
+                if (item.data) {
+                    const appointmentDate = new Date(item.data);
+                    
+                    if (startDateVal) {
+                        const start = new Date(startDateVal);
+                        if (appointmentDate < start) return false;
+                    }
+                    if (endDateVal) {
+                        const end = new Date(endDateVal);
+                        if (appointmentDate > end) return false;
+                    }
+                }
+
+                return true;
+            });
+
+            updateIndicators();
+            updateCharts();
+            renderTable(agendamentosFiltrados);
+        }
+
+        // Atualiza contadores numéricos
+        function updateIndicators() {
+            document.getElementById("kpi-total").innerText = agendamentosFiltrados.length;
+            document.getElementById("badge-sidebar-total").innerText = agendamentosFiltrados.length;
+
+            document.getElementById("kpi-marcados").innerText = agendamentosFiltrados.filter(i => i.status.toLowerCase() === 'marcado').length;
+            document.getElementById("kpi-confirmados").innerText = agendamentosFiltrados.filter(i => i.status.toLowerCase() === 'confirmado').length;
+            document.getElementById("kpi-cancelados").innerText = agendamentosFiltrados.filter(i => i.status.toLowerCase() === 'cancelado').length;
+        }
+
+        // GRÁFICOS DINÂMICOS (CHART.JS)
+        function updateCharts() {
+            // Destrói os gráficos anteriores se existirem para evitar conflito de render
+            if (chartTrendsInstance) chartTrendsInstance.destroy();
+            if (chartServicesInstance) chartServicesInstance.destroy();
+
+            // 1. Processar dados para Gráfico de Tendência (Agrupados por Mês/Ano)
+            const trendData = {};
+            agendamentosFiltrados.forEach(item => {
+                if (!item.data) return;
+                const dateObj = new Date(item.data);
+                const label = dateObj.toLocaleString('pt-PT', { month: 'short', year: 'numeric' });
+                trendData[label] = (trendData[label] || 0) + 1;
+            });
+
+            const labelsTrends = Object.keys(trendData);
+            const dataTrends = Object.values(trendData);
+
+            const ctxTrends = document.getElementById('chart-trends').getContext('2d');
+            chartTrendsInstance = new Chart(ctxTrends, {
+                type: 'line',
+                data: {
+                    labels: labelsTrends.length ? labelsTrends : ['Sem Registos'],
+                    datasets: [{
+                        label: 'Consultas Marcadas',
+                        data: dataTrends.length ? dataTrends : [0],
+                        borderColor: '#0079b4',
+                        backgroundColor: 'rgba(0, 121, 180, 0.08)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#00aeb3'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: '#f1f5f9' } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+
+            // 2. Processar dados para Gráfico Circular (Serviços)
+            const serviceData = {};
+            agendamentosFiltrados.forEach(item => {
+                const label = dicionarioServicos[item.servico.toLowerCase()] || item.servico;
+                serviceData[label] = (serviceData[label] || 0) + 1;
+            });
+
+            const labelsServices = Object.keys(serviceData);
+            const dataServices = Object.values(serviceData);
+
+            const ctxServices = document.getElementById('chart-services').getContext('2d');
+            chartServicesInstance = new Chart(ctxServices, {
+                type: 'doughnut',
+                data: {
+                    labels: labelsServices.length ? labelsServices : ['Sem Dados'],
+                    datasets: [{
+                        data: dataServices.length ? dataServices : [1],
+                        backgroundColor: ['#0079b4', '#00aeb3', '#0f172a', '#64748b', '#94a3b8', '#cbd5e1'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { boxWidth: 12, font: { size: 10, family: 'Inter' } }
+                        }
+                    },
+                    cutout: '65%'
+                }
+            });
+        }
+
+        // TABELA DINÂMICA
+        function renderTable(lista) {
+            const tbody = document.getElementById("table-body");
+            
+            if (lista.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="text-center py-16 text-gray-400">
+                            <i class="fa-regular fa-folder-open text-3xl mb-3 block text-gray-300"></i>
+                            Nenhum paciente localizado de acordo com os filtros de pesquisa selecionados.
+                        </td>
+                    </tr>`;
+                return;
+            }
+
+            tbody.innerHTML = lista.map((item, index) => {
+                let badgeStyle = "bg-amber-50 text-amber-700 ring-amber-600/20";
+                if (item.status.toLowerCase() === 'confirmado') badgeStyle = "bg-emerald-50 text-emerald-700 ring-emerald-600/20";
+                if (item.status.toLowerCase() === 'cancelado') badgeStyle = "bg-rose-50 text-rose-700 ring-rose-600/20";
+
+                const nomeServico = dicionarioServicos[item.servico.toLowerCase()] || item.servico;
+                const nomePeriodo = dicionarioPeriodos[item.periodo.toLowerCase()] || item.periodo;
+
+                return `
+                    <tr class="hover:bg-slate-50/70 transition-colors">
+                        <td class="py-4 px-6 font-semibold text-brand-dark">${item.nome}</td>
+                        <td class="py-4 px-6">
+                            <div class="flex flex-col">
+                                <span class="font-medium">${item.data}</span>
+                                <span class="text-[0.65rem] text-gray-400 font-bold uppercase">${nomePeriodo}</span>
+                            </div>
+                        </td>
+                        <td class="py-4 px-6">
+                            <span class="inline-block bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg font-medium">${nomeServico}</span>
+                        </td>
+                        <td class="py-4 px-6">
+                            <a href="https://wa.me/${item.telefone.replace(/\D/g, '')}" target="_blank" class="text-gray-500 hover:text-green-600 transition-colors flex items-center gap-1.5 font-medium">
+                                <i class="fa-brands fa-whatsapp text-green-500 text-sm"></i> ${item.telefone}
+                            </a>
+                        </td>
+                        <td class="py-4 px-6 text-center">
+                            <div class="flex items-center justify-center gap-1.5">
+                                <!-- Botão Lembrete WhatsApp -->
+                                <button onclick="sendWhatsAppReminder('${item.nome}', '${item.telefone}', '${item.data}', '${nomePeriodo}', '${nomeServico}')" class="px-2.5 py-1.5 text-[0.65rem] bg-emerald-50 text-emerald-700 hover:bg-emerald-500 hover:text-white rounded-lg transition-all font-semibold flex items-center gap-1" title="Enviar Lembrete">
+                                    <i class="fa-brands fa-whatsapp text-xs"></i> Lembrete
+                                </button>
+                                <!-- Alternadores rápidos de Status (Simulador) -->
+                                <button onclick="localUpdateStatus(${index}, 'Confirmado')" class="p-1.5 bg-slate-100 hover:bg-emerald-500 hover:text-white rounded-lg transition-all text-slate-500" title="Confirmar Presença">
+                                    <i class="fa-solid fa-check text-xs"></i>
+                                </button>
+                                <button onclick="localUpdateStatus(${index}, 'Cancelado')" class="p-1.5 bg-slate-100 hover:bg-rose-500 hover:text-white rounded-lg transition-all text-slate-500" title="Cancelar Agendamento">
+                                    <i class="fa-solid fa-xmark text-xs"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td class="py-4 px-6 text-center">
+                            <span class="inline-flex items-center rounded-full px-2.5 py-1 text-[0.65rem] font-bold ring-1 ring-inset ${badgeStyle}">
+                                ${item.status}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // ENVIO DE LEMBRETE FORMATADO NO WHATSAPP
+        function sendWhatsAppReminder(nome, telefone, data, periodo, servico) {
+            const mensagem = `Olá, *${nome}*! Próxima consulta agendada na *Durbas Odonto* para o dia *${data}* (${periodo}) para realização de *${servico}*. Podemos confirmar a sua presença?`;
+            const cleanPhone = telefone.replace(/\D/g, ''); // Limpa qualquer espaçamento ou caractere
+            const url = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(mensagem)}`;
+            window.open(url, '_blank');
+        }
+
+        // SIMULAÇÃO DE ALTERAÇÃO DE STATUS LOCAL
+        function localUpdateStatus(index, novoStatus) {
+            // Atualiza no nosso array ativo de visualização
+            const itemModificado = agendamentosFiltrados[index];
+            if (itemModificado) {
+                // Encontra a referência no array global e atualiza
+                const realIndex = totalAgendamentos.findIndex(x => x.nome === itemModificado.nome && x.data === itemModificado.data);
+                if (realIndex !== -1) {
+                    totalAgendamentos[realIndex].status = novoStatus;
+                    applyFilters();
+                }
+            }
+        }
+
+        // Botoes de Controle do Período (Todos, Manhã, Tarde)
+        function setPeriodoBtn(periodo) {
+            filtroPeriodoInput = periodo;
+            
+            ['todos', 'manha', 'tarde'].forEach(p => {
+                const btn = document.getElementById(`pbtn-${p}`);
+                if (p === periodo) {
+                    btn.className = "flex-1 py-1.5 rounded-lg text-center font-semibold text-brand-dark bg-white shadow-xs transition-all";
+                } else {
+                    btn.className = "flex-1 py-1.5 rounded-lg text-center font-semibold text-gray-500 hover:text-brand-dark transition-all";
+                }
+            });
+            applyFilters();
+        }
+
+        // Filtro rápido clicando nos KPIs
+        function setStatusFilter(status) {
+            filtroStatusInput = status;
+            showSection('agenda'); // Direciona para a lista para ver o filtro
+            applyFilters();
+        }
+
+        // Barra de Pesquisa de Pacientes
+        function handleSearch() {
+            const term = document.getElementById("search-bar").value.toLowerCase();
+            if (!term) {
+                renderTable(agendamentosFiltrados);
+                return;
+            }
+
+            const searchResults = agendamentosFiltrados.filter(item => 
+                item.nome.toLowerCase().includes(term)
+            );
+            renderTable(searchResults);
+        }
+
+        // Limpar todos os filtros ativos
+        function clearAllFilters() {
+            document.getElementById("filter-start-date").value = "";
+            document.getElementById("filter-end-date").value = "";
+            document.getElementById("filter-service").value = "todos";
+            document.getElementById("search-bar").value = "";
+            filtroStatusInput = 'todos';
+            setPeriodoBtn('todos');
+        }
+
+        // EXPORTADOR PARA CSV
+        function exportToCSV() {
+            if (agendamentosFiltrados.length === 0) {
+                alert("Nenhum dado filtrado para exportação.");
+                return;
+            }
+
+            let csvContent = "\uFEFF"; // Byte Order Mark (BOM) para garantir acentuação correta no Excel
+            csvContent += "Paciente,Data,Periodo,Servico,Telemovel,Status\n";
+
+            agendamentosFiltrados.forEach(item => {
+                const nomeServico = dicionarioServicos[item.servico.toLowerCase()] || item.servico;
+                const nomePeriodo = dicionarioPeriodos[item.periodo.toLowerCase()] || item.periodo;
+                const row = `"${item.nome}","${item.data}","${nomePeriodo}","${nomeServico}","${item.telefone}","${item.status}"`;
+                csvContent += row + "\n";
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `Durbas_Odonto_Relatorio_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
